@@ -30,26 +30,26 @@ object Wheel:
 
   
   /** Shift wheel based on index of previous character */
-  def shiftPrevious(scale: Int = 1): Wheel = new Wheel:
-    private var position: Int = 0
+  def shiftPrevious(scale: Int = 1, initialPosition: Int = 0): Wheel = new Wheel:
+    private var position: Int = initialPosition
     
     def mapping(index: Int) =
       val newIndex = index + position * scale
       position = index
       newIndex
     
-    def inverse = shiftPreviousInverse(-scale)
+    def inverse = shiftPreviousInverse(-scale, initialPosition)
 
   
-  private def shiftPreviousInverse(scale: Int = 1): Wheel = new Wheel:
-    private var position: Int = 0
+  private def shiftPreviousInverse(scale: Int, initialPosition: Int): Wheel = new Wheel:
+    private var position: Int = initialPosition
 
     def mapping(index: Int) =
       val newIndex = index + position * scale
       position = mod(newIndex)
       newIndex
 
-    def inverse = shiftPrevious(-scale)
+    def inverse = shiftPrevious(-scale, initialPosition)
 
   
   private def mod(index: Int) = floorMod(index, keyboard.size)
